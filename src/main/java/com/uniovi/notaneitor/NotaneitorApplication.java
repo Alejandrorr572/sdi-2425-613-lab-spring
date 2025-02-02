@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Sdi2425613SpringApplication {
+public class NotaneitorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Sdi2425613SpringApplication.class, args);
+        SpringApplication.run(NotaneitorApplication.class, args);
     }
 
 }
