@@ -1,8 +1,12 @@
 package com.uniovi.notaneitor.entities;
 
+import jakarta.persistence.*;
 import org.springframework.web.bind.annotation.RestController;
 
+@Entity
 public class Mark {
+    @Id
+    @GeneratedValue
     private Long id;
     private String description;
     private double score;
