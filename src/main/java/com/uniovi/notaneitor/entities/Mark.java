@@ -1,9 +1,19 @@
 package com.uniovi.notaneitor.entities;
 
+import org.springframework.web.bind.annotation.RestController;
+
 public class Mark {
     private Long id;
     private String description;
-    private String score;
+    private double score;
+
+    public Mark(){}
+
+    public Mark(Long id, String description, double score) {
+        this.id = id;
+        this.description = description;
+        this.score = score;
+    }
 
     public Long getId() {
         return id;
@@ -21,13 +31,20 @@ public class Mark {
         this.description = description;
     }
 
-    public String getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
-
+    @Override
+    public String toString() {
+        return "Mark{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", score='" + score + '\'' +
+                '}';
+    }
 }
