@@ -45,8 +45,7 @@ public class ProfessorsController {
 
     @RequestMapping(value = "/professor/edit/{dni}", method = RequestMethod.POST)
     public String setEdit(@PathVariable String dni, @ModelAttribute Professor professor) {
-        professorsService.deleteProfessor(dni);
-        professorsService.addProfessor(new Professor(dni, professor.getName(),professor.getSurname(),professor.getCategory()));
+        professorsService.updateProfessor(dni, professor);
         return "redirect:/professor/details/"+dni;
     }
 

@@ -35,5 +35,10 @@ public class ProfessorsService {
     public void deleteProfessor(String dni) {
         professorsList.removeIf(professor -> professor.getDni().equals(dni));
     }
+
+    public void updateProfessor(String dni, Professor professor) {
+        professorsList.removeIf(professor1 -> professor1.getDni().equals(dni));
+        professorsList.add(new Professor(dni,professor.getName(),professor.getSurname(),professor.getCategory()));
+    }
     
 }
