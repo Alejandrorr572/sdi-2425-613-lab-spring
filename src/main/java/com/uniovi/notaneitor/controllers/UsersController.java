@@ -1,4 +1,5 @@
 package com.uniovi.notaneitor.controllers;
+import com.uniovi.notaneitor.services.SecurityService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +9,10 @@ import com.uniovi.notaneitor.services.UsersService;
 @Controller
 public class UsersController {
     private final UsersService usersService;
-    public UsersController(UsersService usersService) {
-        this.usersService = usersService;
+    private final SecurityService securityService;
+    public UsersController(UsersService usersService, SecurityService securityService) {
+        this.usersService = usersService;;
+        this.securityService = securityService;
     }
     @RequestMapping("/user/list")
     public String getListado(Model model) {
@@ -46,5 +49,27 @@ public class UsersController {
     public String setEdit(@PathVariable Long id, @ModelAttribute User user) {
         usersService.addUser(user);
         return "redirect:/user/details/" + id;
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public String getSignup() {
+        return "signup";
+    }
+
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String signup(@ModelAttribute("user") User user, Model model) {
+        usersService.addUser(user);
+        securityService.autoLogin(user.getDni(), user.getPasswordConfirm());
+        return "redirect:home";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
+    public String home() {
+        return "home";
     }
 }

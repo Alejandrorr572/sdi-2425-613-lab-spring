@@ -1,6 +1,6 @@
 package com.uniovi.notaneitor.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.springframework.web.bind.annotation.RestController;
 
 @Entity
@@ -12,7 +12,7 @@ public class Mark {
     private double score;
 
     @ManyToOne
-    @JoinColumn(name = "user id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Mark(){}
