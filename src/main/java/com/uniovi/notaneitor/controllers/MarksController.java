@@ -47,6 +47,12 @@ public class MarksController {
         return "redirect:/mark/list";
     }
 
+    @RequestMapping("/mark/list/update")
+    public String updateList(Model model) {
+        model.addAttribute("markList", marksService.getMarks());
+        return "mark/list :: marksTable";
+    }
+
     @RequestMapping(value = "/mark/edit/{id}")
     public String getEdit(Model model, @PathVariable Long id) {
         model.addAttribute("mark", marksService.getMark(id));
