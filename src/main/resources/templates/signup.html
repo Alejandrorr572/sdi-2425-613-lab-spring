@@ -2,16 +2,18 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 <head th:replace="fragments/head"/>
 <body>
+
 <!-- Barra de Navegación superior -->
 <nav th:replace="fragments/nav"/>
 <div class="container">
-    <h2>Agregar usuario</h2>
-    <form class="form-horizontal" method="post" action="/user/add">
+    <h2>Regístrate como usuario</h2>
+    <form class="form-horizontal" method="post" action="/signup" th:object="${user}">
         <div class="form-group">
             <label class="control-label col-sm-2" for="dni">DNI:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="dni" name="dni"
                        placeholder="99999999Y" required="true"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
             </div>
         </div>
         <div class="form-group">
@@ -19,6 +21,7 @@
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="name" name="name"
                        placeholder="Ejemplo: Juan" required="true"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
         </div>
         <div class="form-group">
@@ -26,6 +29,7 @@
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="lastName" name="lastName"
                        placeholder="Ejemplo: Peréz Almonte" required="true"/>
+                <span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
             </div>
         </div>
         <div class="form-group">
@@ -33,6 +37,7 @@
             <div class="col-sm-10">
                 <input type="password" class="form-control" id="password" name="password"
                        placeholder="Entre el Password" />
+                <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             </div>
         </div>
         <div class="form-group" >
@@ -41,6 +46,8 @@
             <div class="col-sm-10">
                 <input type="password" class="form-control" name="passwordConfirm"
                        placeholder="Repita el Password" />
+                <span class="text-danger" th:if="${#fields.hasErrors('passwordConfirm')}"
+                      th:errors="*{passwordConfirm}"></span>
             </div>
         </div>
         <div class="form-group">
