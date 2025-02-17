@@ -82,30 +82,7 @@
             $("#marksTable").load('/mark/list/update');
         });
     </script>
-    <div class="table-responsive">
-        <table class="table table-hover" th:fragment="marksTable" id="marksTable">
-            <thead>
-            <tr>
-                <th scope="col">id</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Puntuación</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="mark : ${consultedList}">
-                <td scope="row" th:text="${mark.id}"> 1</td>
-                <td th:text="${mark.description}"> Ejercicio 1</td>
-                <td th:text="${mark.score}">10</td>
-                <td><a th:href="${'/mark/details/' + mark.id}">detalles</a></td>
-                <td><a th:href="${'/mark/edit/' + mark.id}">modificar</a></td>
-                <td><a th:href="${'/mark/delete/' + mark.id}">eliminar</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+
     <div th:if="${#lists.isEmpty(markList)}"> No marks </div>
 </div>
 
