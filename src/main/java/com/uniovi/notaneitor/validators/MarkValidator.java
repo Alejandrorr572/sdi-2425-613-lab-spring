@@ -7,7 +7,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class AddMarkValidator implements Validator {
+public class MarkValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
