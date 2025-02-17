@@ -10,6 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Set;
@@ -98,6 +101,18 @@ public class MarksController {
         originalMark.setDescription(mark.getDescription());
         marksService.addMark(originalMark);
         return "redirect:/mark/details/"+id;
+    }
+
+    @RequestMapping(value = "/mark/{id}/resend", method = RequestMethod.GET)
+    public String setResendTrue(@PathVariable Long id) {
+        marksService.setMarkResend(true, id);
+        return "redirect:/mark/list";
+    }
+
+    @RequestMapping(value = "/mark/{id}/noresend", method = RequestMethod.GET)
+    public String setResendFalse(@PathVariable Long id) {
+        marksService.setMarkResend(false, id);
+        return "redirect:/mark/list";
     }
 }
 
