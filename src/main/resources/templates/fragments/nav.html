@@ -36,8 +36,8 @@
                    aria-haspopup="true" aria-expanded="false"> Gestión de profesores
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/professor/add">Agregar profesor</a>
-                    <a class="dropdown-item" href="/professor/list">Ver profesores</a>
+                    <a class="dropdown-item" href="/professor/add" sec:authorize="hasRole('ROLE_ADMIN')">Agregar profesor</a>
+                    <a class="dropdown-item" href="/professor/list" sec:authorize="isAuthenticated()">Ver profesores</a>
                 </div>
             </li>
         </ul>

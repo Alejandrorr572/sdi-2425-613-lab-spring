@@ -1,0 +1,88 @@
+<div class="table-responsive" th:fragment="marksTable" id="marksTable">
+
+    <h2>Notas</h2>
+
+    <form class="form-inline" action="/mark/list">
+        <div class="form-group">
+            <input name="searchText" type="text" class="form-control" size="50"
+                   placeholder="Buscar por descripción o nombre del alumno">
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <p>Las notas que actualmente figuran en el sistema son las siguientes:</p>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Puntuación</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mark : ${marksList}">
+            <td scope="row" th:text="${mark.id}"></td>
+            <td th:text="${mark.description}"></td>
+            <td th:text="${mark.score}"></td>
+            <td><a th:href="@{'/mark/details/' + ${mark.id}}">Detalles</a></td>
+            <td>
+                <a sec:authorize="hasRole('ROLE_PROFESSOR')" th:href="@{'/mark/edit/' + ${mark.id}}">Modificar</a>
+                <div sec:authorize="hasRole('ROLE_STUDENT')">
+                    <div th:if="${mark.resend}">
+                        <button type="button" th:id="'resendButton' + ${mark.id}" class="btn btn-success">Reenviar</button>
+                        <script th:inline="javascript">
+                            $("#resendButton" + "[[${mark.id}]]").click(function() {
+                                $.get("/mark/[[${mark.id}]]/noresend", function() {
+                                    let numberPage = [[${param.page}]];
+                                    let urlUpdate = '/mark/list/update';
+                                    if (numberPage != null) {
+                                        urlUpdate += "?page=" + numberPage[0];
+                                    }
+                                    $("#marksTable").load(urlUpdate);
+                                });
+                            });
+                        </script>
+                    </div>
+                    <div th:unless="${mark.resend}">
+                        <button type="button" th:id="'noresendButton' + ${mark.id}" class="btn btn-info">No reenviar</button>
+                        <script th:inline="javascript">
+                            $("#noresendButton" + "[[${mark.id}]]").click(function() {
+                                $.get("/mark/[[${mark.id}]]/resend", function() {
+                                    let numberPage = [[${param.page}]];
+                                    let urlUpdate = '/mark/list/update';
+                                    if (numberPage != null) {
+                                        urlUpdate += "?page=" + numberPage[0];
+                                    }
+                                    $("#marksTable").load(urlUpdate);
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </td>
+            <td><a sec:authorize="hasRole('ROLE_PROFESSOR')" th:href="@{'/mark/delete/' + ${mark.id}}">Eliminar</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" id="updateButton" class="btn btn-primary">Actualizar</button>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $("#updateButton").click(function() {
+            let numberPage = [[${param.page}]];
+            let urlUpdate = '/mark/list/update';
+            if (numberPage != null) {
+                urlUpdate += "?page=" + numberPage[0];
+            }
+            $("#marksTable").load(urlUpdate + " #marksTable");
+        });
+        /*]]>*/
+    </script>
+
+    <div th:if="${#lists.isEmpty(marksList)}">No marks</div>
+</div>

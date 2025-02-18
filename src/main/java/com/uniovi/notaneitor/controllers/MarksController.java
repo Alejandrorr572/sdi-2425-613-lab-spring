@@ -51,7 +51,7 @@ public class MarksController {
             marks = marksService.getMarksForUser(pageable, user);
         }
 
-        model.addAttribute("markList", marks.getContent());
+        model.addAttribute("marksList", marks.getContent());
         model.addAttribute("page", marks);
         return "mark/list";
     }

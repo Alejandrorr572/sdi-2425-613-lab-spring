@@ -10,6 +10,9 @@
     <p>Usuario Autenticado como :
         <b th:inline="text" sec:authentication="principal.username"></b>
     </p>
+
+    <div th:replace="fragments/markList :: marksTable"></div>
+    <footer th:replace="fragments/pagination"/>
 </div>
 <footer th:replace="fragments/footer"/>
 </body>
